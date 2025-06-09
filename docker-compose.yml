@@ -1,16 +1,17 @@
 version: "3.8"
 
 services:
-  auth-db:
-    image: postgres:15
+  db:
+    image: postgres:16
     container_name: auth_db
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: auth_cinema
       TZ: America/Sao_Paulo
     ports:
-      - "5433:5432"  # Porta diferente para evitar conflito
+      - "5433:5432" # Porta diferente para evitar conflito com o outro banco
     volumes:
       - auth_db_data:/var/lib/postgresql/data
     healthcheck:
@@ -18,17 +19,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:  # Adicione isso
-      - auth_network
 
-  auth-cinema:
+  backend:
     build: .
     container_name: auth_cinema
     depends_on:
-      auth-db:
+      db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-db:5432/auth_cinema
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/auth_cinema
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: none
@@ -36,12 +35,6 @@ services:
       JWT_SECRET: 3nG8xZaQrY7cW2fA7qbq6zTyZ8bC3dA2wS7gN1mK9jF0hL4tUoP6iBvE3nG8xZaQ
     ports:
       - "8081:8080"
-    networks:  # Adicione isso
-      - auth_network
 
 volumes:
   auth_db_data:
-
-networks:  # Defina a rede
-  auth_network:
-    driver: bridge
