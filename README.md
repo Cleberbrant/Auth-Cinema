@@ -1,5 +1,11 @@
 # 🔑 Microserviço de Autenticação (auth-cinema)
 
+| Aluno                        | Matrícula   | Disciplina                                           |
+|------------------------------|-------------|------------------------------------------------------|
+| Cleber de Oliveira Brant     | 200061216   | Técnicas de Programação em Plataformas Emergentes     |
+
+---
+
 ## Sobre
 
 O **auth-cinema** é o microserviço responsável pela autenticação, cadastro e gerenciamento de usuários no sistema de cinema. Ele fornece endpoints para registro, login, gerenciamento de perfis e geração de tokens JWT, garantindo a segurança e integridade do acesso aos demais serviços da arquitetura.
@@ -112,6 +118,11 @@ text
   - **E-mail:** `admin@gmail.com`
   - **Senha:** `admin`
   - **Role:** `ROLE_ADMIN`
+    
+- **Usuário padrão:**  
+  - **E-mail:** `usuario@gmail.com`
+  - **Senha:** `usuario`
+  - **Role:** `ROLE_USER`
 
 ---
 
