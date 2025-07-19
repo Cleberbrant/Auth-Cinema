@@ -1,10 +1,8 @@
 package com.cleber.auth_cinema.controller;
 
 import com.cleber.auth_cinema.dto.UsuarioDTO;
-import com.cleber.auth_cinema.dto.RegisterDTO;
 import com.cleber.auth_cinema.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/auth/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
 
 	private final UsuarioService usuarioService;
-
-	@PostMapping("/register")
-	public ResponseEntity<UsuarioDTO> cadastrar(@RequestBody RegisterDTO dto) {
-		UsuarioDTO created = usuarioService.cadastrar(dto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(created);
-	}
 
 	@GetMapping
 	@PreAuthorize("hasRole('ADMIN')")
